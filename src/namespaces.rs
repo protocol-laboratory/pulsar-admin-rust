@@ -12,7 +12,21 @@ impl<'a> Namespaces<'a> {
         Namespaces { inner_http_client }
     }
 
-    pub async fn get_namespaces(&self, tenant: &str) -> Result<Vec<String>, Box<dyn Error>> {
+    pub async fn create_namespace(&self, tenant: &str, namespace: &str) -> Result<(), Box<dyn Error>> {
+        let url_path = format!("{}/{}/{}", URL_NAMESPACES, tenant, namespace);
+        let url = self.inner_http_client.base_url.join(&url_path).unwrap();
+        self.inner_http_client.client.put(url).send().await?;
+        Ok(())
+    }
+
+    pub async fn delete_namespace(&self, tenant: &str, namespace: &str) -> Result<(), Box<dyn Error>> {
+        let url_path = format!("{}/{}/{}", URL_NAMESPACES, tenant, namespace);
+        let url = self.inner_http_client.base_url.join(&url_path).unwrap();
+        self.inner_http_client.client.delete(url).send().await?;
+        Ok(())
+    }
+
+    pub async fn list_namespaces(&self, tenant: &str) -> Result<Vec<String>, Box<dyn Error>> {
         let url_path = format!("{}/{}", URL_NAMESPACES, tenant);
         let response = self.inner_http_client.get(url_path.as_str()).await?;
         let namespaces: Vec<String> = serde_json::from_str(&response)?;
@@ -31,7 +45,7 @@ mod tests {
     async fn test_get_namespaces() {
         let pulsar_admin = PulsarAdmin::new(PULSAR_HOST, PULSAR_PORT, None);
         let namespaces_api = pulsar_admin.namespaces();
-        let namespaces = namespaces_api.get_namespaces("pulsar").await.unwrap();
+        let namespaces = namespaces_api.list_namespaces("pulsar").await.unwrap();
         assert!(!namespaces.is_empty(), "Namespaces list should not be empty");
     }
 }

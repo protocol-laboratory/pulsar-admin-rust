@@ -33,4 +33,22 @@ impl InnerHttpClient {
             Err(e) => Err(Box::new(e)),
         }
     }
+
+    pub async fn put(&self, path: &str, body: String) -> Result<(), Box<dyn Error>> {
+        let url = self.base_url.join(path)?;
+        let resp = self.client.put(url).header("Content-Type", "application/json").body(body).send().await?;
+        match resp.error_for_status() {
+            Ok(_) => Ok(()),
+            Err(e) => Err(Box::new(e)),
+        }
+    }
+
+    pub async fn delete(&self, path: &str) -> Result<(), Box<dyn Error>> {
+        let url = self.base_url.join(path)?;
+        let resp = self.client.delete(url).send().await?;
+        match resp.error_for_status() {
+            Ok(_) => Ok(()),
+            Err(e) => Err(Box::new(e)),
+        }
+    }
 }
