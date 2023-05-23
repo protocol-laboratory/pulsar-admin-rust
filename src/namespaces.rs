@@ -14,8 +14,7 @@ impl<'a> Namespaces<'a> {
 
     pub async fn get_namespaces(&self, tenant: &str) -> Result<Vec<String>, Box<dyn Error>> {
         let url_path = format!("{}/{}", URL_NAMESPACES, tenant);
-        let url = self.inner_http_client.base_url.join(&url_path).unwrap();
-        let response = self.inner_http_client.client.get(url).send().await?.text().await?;
+        let response = self.inner_http_client.get(url_path.as_str()).await?;
         let namespaces: Vec<String> = serde_json::from_str(&response)?;
         Ok(namespaces)
     }

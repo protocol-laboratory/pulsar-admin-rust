@@ -13,8 +13,7 @@ impl<'a> Tenants<'a> {
     }
 
     pub async fn get_tenants(&self) -> Result<Vec<String>, Box<dyn Error>> {
-        let url = self.inner_http_client.base_url.join(URL_TENANTS).unwrap();
-        let response = self.inner_http_client.client.get(url).send().await?.text().await?;
+        let response = self.inner_http_client.get(URL_TENANTS).await?;
         let tenants: Vec<String> = serde_json::from_str(&response)?;
         Ok(tenants)
     }
