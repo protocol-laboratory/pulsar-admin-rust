@@ -1,6 +1,7 @@
 use crate::inner_http_client::InnerHttpClient;
 use crate::tenants::Tenants;
 use crate::namespaces::Namespaces;
+use crate::{Lookup, PersistentTopics};
 
 pub struct PulsarAdmin {
     inner_http_client: InnerHttpClient,
@@ -18,6 +19,14 @@ impl PulsarAdmin {
 
     pub fn namespaces(&self) -> Namespaces {
         Namespaces::new(&self.inner_http_client)
+    }
+
+    pub fn persistent_topics(&self) -> PersistentTopics {
+        PersistentTopics::new(&self.inner_http_client)
+    }
+
+    pub fn lookup(&self) -> Lookup {
+        Lookup::new(&self.inner_http_client)
     }
 }
 

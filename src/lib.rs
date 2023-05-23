@@ -5,6 +5,7 @@ mod namespaces;
 mod persistent_topics;
 mod lookup;
 mod url_constants;
+mod util;
 
 pub use pulsar_admin::{PulsarAdmin, SslParams};
 pub use tenants::Tenants;

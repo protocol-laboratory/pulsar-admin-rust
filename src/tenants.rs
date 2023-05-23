@@ -12,7 +12,7 @@ impl<'a> Tenants<'a> {
         Tenants { inner_http_client }
     }
 
-    pub async fn get_tenants(&self) -> Result<Vec<String>, Box<dyn Error>> {
+    pub async fn list_tenants(&self) -> Result<Vec<String>, Box<dyn Error>> {
         let response = self.inner_http_client.get(URL_TENANTS).await?;
         let tenants: Vec<String> = serde_json::from_str(&response)?;
         Ok(tenants)
@@ -30,7 +30,7 @@ mod tests {
     async fn test_get_tenants() {
         let pulsar_admin = PulsarAdmin::new(PULSAR_HOST, PULSAR_PORT, None);
         let tenants_api = pulsar_admin.tenants();
-        let tenants = tenants_api.get_tenants().await.unwrap();
+        let tenants = tenants_api.list_tenants().await.unwrap();
         assert!(!tenants.is_empty(), "Tenants list should not be empty");
     }
 }
