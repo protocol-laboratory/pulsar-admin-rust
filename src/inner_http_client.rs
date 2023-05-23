@@ -1,3 +1,4 @@
+use std::error::Error;
 use reqwest::{Client, Url};
 use crate::SslParams;
 
@@ -22,5 +23,14 @@ impl InnerHttpClient {
         };
 
         InnerHttpClient { client, base_url }
+    }
+
+    pub async fn get(&self, path: &str) -> Result<String, Box<dyn Error>> {
+        let url = self.base_url.join(path)?;
+        let resp = self.client.get(url).send().await?;
+        match resp.error_for_status() {
+            Ok(resp) => Ok(resp.text().await?),
+            Err(e) => Err(Box::new(e)),
+        }
     }
 }
