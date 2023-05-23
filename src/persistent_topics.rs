@@ -49,11 +49,11 @@ pub struct TopicStats {
     #[serde(rename = "lastOffloadFailureTimeStamp")]
     last_offload_failure_time_stamp: u64,
     #[serde(rename = "ongoingTxnCount")]
-    ongoing_txn_count: u64,
+    ongoing_txn_count: Option<u64>,
     #[serde(rename = "abortedTxnCount")]
-    aborted_txn_count: u64,
+    aborted_txn_count: Option<u64>,
     #[serde(rename = "committedTxnCount")]
-    committed_txn_count: u64,
+    committed_txn_count: Option<u64>,
     #[serde(rename = "publishers")]
     publishers: Vec<String>,
     #[serde(rename = "waitingPublishers")]
@@ -69,11 +69,11 @@ pub struct TopicStats {
     #[serde(rename = "nonContiguousDeletedMessagesRangesSerializedSize")]
     non_contiguous_deleted_messages_ranges_serialized_size: u64,
     #[serde(rename = "delayedMessageIndexSizeInBytes")]
-    delayed_message_index_size_in_bytes: u64,
+    delayed_message_index_size_in_bytes: Option<u64>,
     #[serde(rename = "compaction")]
     compaction: Compaction,
     #[serde(rename = "ownerBroker")]
-    owner_broker: String,
+    owner_broker: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
