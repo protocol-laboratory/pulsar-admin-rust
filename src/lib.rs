@@ -11,4 +11,6 @@ pub use pulsar_admin::{PulsarAdmin, SslParams};
 pub use tenants::Tenants;
 pub use namespaces::Namespaces;
 pub use persistent_topics::PersistentTopics;
+pub use persistent_topics::TopicStats;
 pub use lookup::Lookup;
+pub use lookup::LookupData;
