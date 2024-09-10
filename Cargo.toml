@@ -1,6 +1,6 @@
 [package]
-name = "pulsar-admin-rust"
-version = "0.0.1"
+name = "pulsar-admin"
+version = "0.0.2"
 edition = "2021"
 description = "A Rust-based HTTP client for interacting with the Apache Pulsar REST API"
 license = "Apache-2.0"
@@ -9,7 +9,7 @@ homepage = "https://github.com/protocol-laboratory/pulsar-admin-rust"
 
 [dependencies]
 rand = "0.8.5"
-reqwest = { version = "0.11.18", features = ["json", "__rustls"] }
-serde = { version = "1.0.163", features = ["derive"] }
-serde_json = "1.0.96"
-tokio = {version = "1.28.1", features = ["full"] }
+reqwest = { version = "0.12.7", features = ["json", "__rustls"] }
+serde = { version = "1.0.210", features = ["derive"] }
+serde_json = "1.0.128"
+tokio = {version = "1.40.0", features = ["full"] }
