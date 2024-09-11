@@ -1,6 +1,6 @@
 [package]
 name = "pulsar-admin"
-version = "0.0.2"
+version = "0.0.3"
 edition = "2021"
 description = "A Rust-based HTTP client for interacting with the Apache Pulsar REST API"
 license = "Apache-2.0"
